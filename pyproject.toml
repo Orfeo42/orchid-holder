@@ -1,0 +1,19 @@
+[project]
+name = "orchid-holder"
+version = "0.1.0"
+description = "3D-printable modular orchid pot holder with snap-in feet (build123d)"
+license = "Unlicense"
+authors = [
+    { name = "Orfeo42", email = "lucio.rosadini87@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "build123d>=0.13.0",
+    "pyvista>=0.49.2",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "pytest>=9.2.0",
+]
