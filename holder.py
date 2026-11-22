@@ -30,15 +30,14 @@ from build123d import (
     revolve,
 )
 
-POT_BOTTOM_D = 80.0
-POT_RIM_D = 100.0
-POT_SLANT = 80.0
-POT_H = 120.0
-POT_RISE = math.sqrt(POT_SLANT**2 - ((POT_RIM_D - POT_BOTTOM_D) / 2) ** 2)
-POT_TAPER = (POT_RIM_D - POT_BOTTOM_D) / 2 / POT_RISE
-POT_TOP_D = POT_BOTTOM_D + 2 * POT_TAPER * POT_H
+POT_BOTTOM_D = 86.0
+POT_TOP_CIRC = 340.0
+POT_H = 105.0
+POT_TOP_D = POT_TOP_CIRC / math.pi
+POT_TAPER = (POT_TOP_D - POT_BOTTOM_D) / 2 / POT_H
 
 POT_CLEARANCE = 0.3
+POT_R0 = POT_BOTTOM_D / 2 + POT_CLEARANCE
 FIT_CLEARANCE = 0.1
 
 BASE_T = 2.5
@@ -51,37 +50,39 @@ WINDOW_Z0 = 6.5
 WINDOW_Z1 = CUP_H - 5.0
 
 FEET = 8
-CORE_R = 48.0
 CORE_H = 5.0
 CORE_FILLET = 2.0
-LOBE_IN = 45.0
-LOBE_C = 58.0
 LOBE_R = 9.0
 LOBE_FILLET = 3.0
 
 BASE_H = 9.0
-POCKET_R_IN = 49.0
+POCKET_R_IN = POT_R0 + 5.5
+CORE_R = POCKET_R_IN - 1.0
+LOBE_IN = POCKET_R_IN - 4.0
+LOBE_C = POCKET_R_IN + 9.0
 POCKET_W = 10.0
 FORK_GAP = 2.4
 FORK_L = 15.0
 GROOVE_Z0 = 4.0
 GROOVE_Z1 = 6.0
 GROOVE_D = 0.8
-GROOVE_X0 = 49.5
-GROOVE_X1 = 58.0
+GROOVE_X0 = POCKET_R_IN + 0.5
+GROOVE_X1 = POCKET_R_IN + 9.0
 RIDGE = 0.7
 RIDGE_H = 0.6
-RIDGE_X0 = 50.0
-RIDGE_X1 = 57.0
+RIDGE_X0 = POCKET_R_IN + 1.0
+RIDGE_X1 = POCKET_R_IN + 8.0
 EAR_H = 4.0
 EAR_L = 6.0
 EAR_FILLET = 1.5
-TIE_X0 = 60.5
+TIE_X0 = POCKET_R_IN + 11.5
 TIE_L = 3.0
 TIE_H = 1.6
+NOTCH_GAP_X = 0.4
+NOTCH_GAP_Z = 0.5
 
-RING_R_IN = 80.0
-RING_R_OUT = 88.0
+RING_R_IN = POT_R0 + 36.5
+RING_R_OUT = POT_R0 + 44.5
 RING_H = 6.0
 RING_GAP = 1.0
 SPOKE_W_ROOT = 10.0
@@ -89,7 +90,6 @@ SPOKE_W_RING = 7.0
 SPOKE_SWIRL = 12.0
 RING_EDGE_R = 3.5
 
-POT_R0 = POT_BOTTOM_D / 2 + POT_CLEARANCE
 TONGUE_X0 = POCKET_R_IN + FIT_CLEARANCE
 POCKET_HW = POCKET_W / 2 + FIT_CLEARANCE
 
@@ -247,10 +247,10 @@ def tongue() -> Part:
             RIDGE_X1,
         )
         result = as_part(result + lip, "lip")
-    notch = Pos(TIE_X0 - FIT_CLEARANCE, 0.0, -1.0) * Box(
-        TIE_L + 2 * FIT_CLEARANCE,
+    notch = Pos(TIE_X0 - NOTCH_GAP_X, 0.0, -1.0) * Box(
+        TIE_L + 2 * NOTCH_GAP_X,
         POCKET_W + 2 * RIDGE + 2.0,
-        TIE_H + FIT_CLEARANCE + 1.0,
+        TIE_H + NOTCH_GAP_Z + 1.0,
         align=(Align.MIN, Align.CENTER, Align.MIN),
     )
     return as_part(result - notch, "tie notch")

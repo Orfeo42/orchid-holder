@@ -9,6 +9,7 @@ from holder import (
     GROOVE_Z0,
     GROOVE_Z1,
     POCKET_HW,
+    POCKET_R_IN,
     CUP_H,
     FEET,
     POT_R0,
@@ -71,12 +72,12 @@ def test_cup_arches(cup_part: Part) -> None:
 
 def test_cup_pocket(cup_part: Part) -> None:
     groove_z = (GROOVE_Z0 + GROOVE_Z1) / 2 + 0.3
-    assert not cup_part.is_inside(Vector(60.0, 0.0, 1.0))
-    assert not cup_part.is_inside(Vector(60.0, 0.0, BASE_H - 1.0))
-    assert cup_part.is_inside(Vector(55.0, 7.5, 2.0))
-    assert cup_part.is_inside(Vector(55.0, -7.5, 2.0))
-    assert not cup_part.is_inside(Vector(54.0, POCKET_HW + 0.4, groove_z))
-    assert cup_part.is_inside(Vector(54.0, POCKET_HW + 0.4, GROOVE_Z1 + 1.0))
+    assert not cup_part.is_inside(Vector(POCKET_R_IN + 11.0, 0.0, 1.0))
+    assert not cup_part.is_inside(Vector(POCKET_R_IN + 11.0, 0.0, BASE_H - 1.0))
+    assert cup_part.is_inside(Vector(POCKET_R_IN + 6.0, 7.5, 2.0))
+    assert cup_part.is_inside(Vector(POCKET_R_IN + 6.0, -7.5, 2.0))
+    assert not cup_part.is_inside(Vector(POCKET_R_IN + 5.0, POCKET_HW + 0.4, groove_z))
+    assert cup_part.is_inside(Vector(POCKET_R_IN + 5.0, POCKET_HW + 0.4, GROOVE_Z1 + 1.0))
     tie_x = TIE_X0 + TIE_L / 2
     assert cup_part.is_inside(Vector(tie_x, 0.0, TIE_H / 2))
     assert not cup_part.is_inside(Vector(tie_x, 0.0, TIE_H + 1.0))
@@ -92,7 +93,7 @@ def test_foot(foot_part: Part) -> None:
     assert foot_part.is_inside(Vector(TONGUE_X0 + 6.0, 3.0, 6.0))
     assert not foot_part.is_inside(Vector(TONGUE_X0 + 6.0, 0.0, 6.0))
     assert foot_part.is_inside(Vector(TONGUE_X0 + 3.0, 3.0, BASE_H + 2.0))
-    assert foot_part.is_inside(Vector(53.0, 5.3, GROOVE_Z1 - 0.5))
+    assert foot_part.is_inside(Vector(POCKET_R_IN + 4.0, 5.3, GROOVE_Z1 - 0.5))
     tie_x = TIE_X0 + TIE_L / 2
     assert not foot_part.is_inside(Vector(tie_x, 3.0, TIE_H / 2))
     assert foot_part.is_inside(Vector(tie_x, 3.0, TIE_H + 1.0))

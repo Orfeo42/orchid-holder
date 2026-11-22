@@ -1,6 +1,6 @@
 # orchid-holder
 
-3D-printable modular holder for an orchid pot (80 mm bottom diameter, 100 mm diameter at 80 mm up the slanted side). A low cup with round-arched windows grips the bottom of the pot, and eight curved snap-in feet form a ring around it so the top-heavy plant does not tip over. Modelled in Python with [build123d](https://github.com/gumyr/build123d).
+3D-printable modular holder for an orchid pot (105 mm tall, 86 mm bottom diameter, 340 mm around the top, measured on the outside). A low cup with round-arched windows grips the bottom of the pot, and eight curved snap-in feet form a ring around it so the top-heavy plant does not tip over. Modelled in Python with [build123d](https://github.com/gumyr/build123d).
 
 ## Shape
 
